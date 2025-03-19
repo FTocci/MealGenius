@@ -1,16 +1,18 @@
-import logo from './images/MealGenius-noSub.png';
 import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./Home";
+import MealGenius from "./MealGenius";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} alt="logo" style={{width:'500px', height:'500px'}} />
-        <h1>Benvenuto su MealGenius</h1>
-        <p>Il tuo assistente per pasti intelligenti!</p>
-      </header>
-    </div>
-  );
-}
-
-export default App;
+    return (
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/meal-genius" element={<MealGenius />} />
+        </Routes>
+      </Router>
+    );
+  }
+  
+  export default App;
