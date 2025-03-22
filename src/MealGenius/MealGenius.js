@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import FormMeal from "./FormMeal";
 import "./css/MealGenius.css";
 import TableResults from "./TableResults";
+import Disclaimer from "./Disclaimer";
 
 function MealGenius() {
   const [userData, setUserData] = useState(null);
   const [showDieta, setShowDieta] = useState(false);
+  const [showDisclaimer, setShowDisclaimer] = useState(true);
 
   const handleSubmit = (data) => {
     setUserData(data);
@@ -13,6 +15,10 @@ function MealGenius() {
 
   const handleGenerateDieta = () => {
     setShowDieta(true);
+  };
+
+  const handleCloseDisclaimer = () => {
+    setShowDisclaimer(false);
   };
 
   const mockDieta = {
@@ -38,17 +44,35 @@ function MealGenius() {
 
   return (
     <div style={{ color: "white", textAlign: "center", padding: "20px", fontFamily: "Arial, sans-serif" }}>
-      <h1 style={{ fontSize: "2.5rem", marginBottom: "10px" }}>Meal Genius</h1>
+      {showDisclaimer && <Disclaimer handleCloseDisclaimer={handleCloseDisclaimer}/>}
+
+      <h1 style={{ fontSize: "2.5rem", marginBottom: "10px" }}>MealGenius</h1>
 
       {showDieta ? (
         <div>
-          <h2 style={{ fontSize: "1.8rem", marginBottom: "10px" }}>Ecco la tua dieta</h2>
           <TableResults data={mockDieta} />
+          <button
+            onClick={() => {
+              setShowDieta(false);
+              setUserData(null);
+            }}
+            style={{
+              marginTop: "10px",
+              padding: "10px 20px",
+              background: "#f44336",
+              color: "white",
+              border: "none",
+              borderRadius: "5px",
+              cursor: "pointer",
+            }}
+          >
+            Torna Indietro
+          </button>
         </div>
       ) : !userData ? (
         <FormMeal onSubmit={handleSubmit} />
       ) : (
-        <div style={{ marginTop: "20px", color: "white" }}>
+        <div style={{ marginTop: "100px", color: "white" }}>
           <h2 style={{ fontSize: "1.8rem", marginBottom: "10px" }}>Riepilogo</h2>
           <p>Età: {userData.age}</p>
           <p>Peso: {userData.weight} kg</p>

@@ -28,7 +28,7 @@ function FormMeal({ onSubmit }) {
   const progressPercentage = ((step -1) / 4) * 100;
 
   return (
-    <div style={{ textAlign: "center", padding: "20px", fontFamily: "Arial, sans-serif" }}>
+    <div style={{ textAlign: "center", padding: "50px", fontFamily: "Arial, sans-serif" }}>
       {step > 0 && (
         <div style={{ background: "#ddd", borderRadius: "10px", overflow: "hidden", margin: "20px auto", width: "30%", height: "20px" }}>
           <div
@@ -42,7 +42,7 @@ function FormMeal({ onSubmit }) {
         </div>
       )}
 
-      <form style={{ margin: "20px auto", maxWidth: "400px", background: "#333", padding: "20px", borderRadius: "10px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)" }}>
+      <form style={{ margin: "50px auto", maxWidth: "400px", background: "#333", padding: "20px", borderRadius: "10px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)" }}>
         {!submitted && step === 0 && (
           <div style={{ marginBottom: "20px" }}>
             <p style={{ fontSize: "1.2rem", marginBottom: "20px" }}>Premi "Inizia" per cominciare.</p>
@@ -64,24 +64,24 @@ function FormMeal({ onSubmit }) {
         {!submitted && step === 1 && (
           <div>
             <label>
-              Età:
-              <input type="number" name="age" value={formData.age} onChange={handleChange} required />
+              <b>ETÀ:</b>
+              <input type="number" name="age" value={formData.age} onChange={handleChange} required style={{marginLeft:'10px'}}/>
             </label>
           </div>
         )}
         {!submitted && step === 2 && (
           <div>
             <label>
-              Peso (kg):
-              <input type="number" name="weight" value={formData.weight} onChange={handleChange} required />
+              <b>PESO (kg):</b>
+              <input type="number" name="weight" value={formData.weight} onChange={handleChange} required style={{marginLeft:'10px'}}/>
             </label>
           </div>
         )}
         {!submitted && step === 3 && (
           <div>
             <label>
-              Obiettivo:
-              <select name="goal" value={formData.goal} onChange={handleChange} required>
+              <b>OBIETTIVO:</b>
+              <select name="goal" value={formData.goal} onChange={handleChange} required style={{marginLeft:'10px'}}>
                 <option value="">Seleziona</option>
                 <option value="dimagrire">Dimagrire</option>
                 <option value="ingrassare">Ingrassare</option>
@@ -93,8 +93,8 @@ function FormMeal({ onSubmit }) {
         {!submitted && step === 4 && (
           <div>
             <label>
-              Allergie:
-              <input type="text" name="allergies" value={formData.allergies} onChange={handleChange} placeholder="Inserisci eventuali allergie" />
+              <b>ALLERGIE:</b>
+              <input type="text" name="allergies" value={formData.allergies} onChange={handleChange} placeholder="Inserisci eventuali allergie" style={{marginLeft:'10px'}} />
             </label>
           </div>
         )}
@@ -102,7 +102,7 @@ function FormMeal({ onSubmit }) {
           <button
             onClick={handleNext}
             style={{
-              marginTop: "10px",
+              marginTop: "30px",
               padding: "10px 20px",
               background: "#4caf50",
               color: "white",
