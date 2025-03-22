@@ -28,9 +28,9 @@ function FormMeal({ onSubmit }) {
   const progressPercentage = ((step -1) / 4) * 100;
 
   return (
-    <div style={{ textAlign: "center", padding: "50px", fontFamily: "Arial, sans-serif" }}>
+    <div style={{ textAlign: "center", padding: "100px", fontFamily: "Arial, sans-serif" }}>
       {step > 0 && (
-        <div style={{ background: "#ddd", borderRadius: "10px", overflow: "hidden", margin: "20px auto", width: "30%", height: "20px" }}>
+        <div style={{ background: "#ddd", borderRadius: "10px", overflow: "hidden", margin: "20px auto", width: "40%", height: "10px" }}>
           <div
             style={{
               width: `${progressPercentage}%`,

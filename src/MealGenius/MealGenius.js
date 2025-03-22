@@ -1,13 +1,16 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; 
 import FormMeal from "./FormMeal";
 import "./css/MealGenius.css";
 import TableResults from "./TableResults";
 import Disclaimer from "./Disclaimer";
+import { FaHome } from "react-icons/fa";
 
 function MealGenius() {
   const [userData, setUserData] = useState(null);
   const [showDieta, setShowDieta] = useState(false);
   const [showDisclaimer, setShowDisclaimer] = useState(true);
+  const navigate = useNavigate(); // Inizializza useNavigate
 
   const handleSubmit = (data) => {
     setUserData(data);
@@ -43,10 +46,53 @@ function MealGenius() {
   };
 
   return (
-    <div style={{ color: "white", textAlign: "center", padding: "20px", fontFamily: "Arial, sans-serif" }}>
-      {showDisclaimer && <Disclaimer handleCloseDisclaimer={handleCloseDisclaimer}/>}
+    <div style={{ color: "white", textAlign: "center", padding: "0px", fontFamily: "Arial, sans-serif" }}>
+      {showDisclaimer && <Disclaimer handleCloseDisclaimer={handleCloseDisclaimer} />}
 
-      <h1 style={{ fontSize: "2.5rem", marginBottom: "10px" }}>MealGenius</h1>
+      {/* Bottone per tornare alla home */}
+      <button
+        onClick={() => navigate("/")}
+        style={{
+          position: "absolute",
+          left: "20px",
+          background: "transparent",
+          border: "none",
+          cursor: "pointer",
+          display: "flex",
+          alignItems: "center",
+          padding: "5px",
+          transition: "color 0.3s ease",
+          color: "#FFFFFF", // Colore icona predefinito
+        }}
+        onMouseOver={(e) => (e.target.style.color = "green")}
+        onMouseOut={(e) => (e.target.style.color = "#FFFFFF")}
+      >
+        <FaHome size={35} />
+      </button>
+
+
+      <div style={{ textAlign: "center", marginBottom: "30px" }}>
+        <h1
+          style={{
+            fontSize: "3rem",
+            marginBottom: "10px",
+            textShadow: "2px 2px 6px rgba(0, 0, 0, 0.4)",
+            color: "#FFFFFF",
+            fontWeight: "bold",
+          }}
+        >
+          MealGenius
+        </h1>
+        <div
+          style={{
+            width: "100%",
+            height: "1px",
+            background: "#FFFFFF",
+            margin: "0 auto",
+            borderRadius: "2px",
+          }}
+        ></div>
+      </div>
 
       {showDieta ? (
         <div>
