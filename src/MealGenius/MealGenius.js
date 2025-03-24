@@ -45,6 +45,23 @@ function MealGenius() {
     ],
   };
 
+  const downloadTableAsTxt = () => {
+    let content = "Dieta Generata:\n\n";
+    for (const [key, value] of Object.entries(mockDieta)) {
+      content += `${key.toUpperCase()}:\n`;
+      value.forEach((item) => {
+        content += `- ${item.alimento}: ${item.quantità}\n`;
+      });
+      content += "\n";
+    }
+
+    const blob = new Blob([content], { type: "text/plain" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "dieta.txt";
+    link.click();
+  };
+
   return (
     <div style={{ color: "white", textAlign: "center", padding: "0px", fontFamily: "Arial, sans-serif" }}>
       {showDisclaimer && <Disclaimer handleCloseDisclaimer={handleCloseDisclaimer} />}
@@ -97,6 +114,18 @@ function MealGenius() {
       {showDieta ? (
         <div>
           <TableResults data={mockDieta} />
+          <button
+            onClick={downloadTableAsTxt}
+            style={{
+              marginTop: "10px",
+              marginRight: "10px",
+              background: "#2196F3",
+              color: "white",
+              borderRadius: "5px",
+            }}
+          >
+            Scarica Dieta
+          </button>
           <button
             onClick={() => {
               setShowDieta(false);

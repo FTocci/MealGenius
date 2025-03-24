@@ -13,11 +13,22 @@ function FormMeal({ onSubmit }) {
 
   const handleNext = (event) => {
     event.preventDefault();
+    
+    if (
+      (step === 1 && !formData.age) ||
+      (step === 2 && !formData.weight) ||
+      (step === 3 && !formData.goal)
+    ) {
+      alert("Il campo è obbligatorio.");
+      return;
+    }
+    
     if (step === 4) {
       setSubmitted(true);
       onSubmit(formData);
+    } else {
+      setStep(step + 1);
     }
-    setStep(step + 1);
   };
 
   const handleChange = (event) => {
@@ -65,7 +76,7 @@ function FormMeal({ onSubmit }) {
           <div>
             <label>
               <b>ETÀ:</b>
-              <input type="number" name="age" value={formData.age} onChange={handleChange} required style={{marginLeft:'10px'}}/>
+              <input type="text" name="age" value={formData.age} onChange={handleChange} required style={{marginLeft:'10px'}}/>
             </label>
           </div>
         )}
@@ -73,7 +84,7 @@ function FormMeal({ onSubmit }) {
           <div>
             <label>
               <b>PESO (kg):</b>
-              <input type="number" name="weight" value={formData.weight} onChange={handleChange} required style={{marginLeft:'10px'}}/>
+              <input type="text" name="weight" value={formData.weight} onChange={handleChange} required style={{marginLeft:'10px'}}/>
             </label>
           </div>
         )}
