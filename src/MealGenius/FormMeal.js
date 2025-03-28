@@ -76,6 +76,7 @@ function FormMeal({ onSubmit }) {
       >
         {!submitted && step === 0 && (
           <div style={{ marginBottom: "20px" }}>
+            <h3>Genera la tua dieta giornaliera con un click</h3>
             <p style={{ fontSize: "1.2rem", marginBottom: "20px" }}>Premi "Inizia" per cominciare.</p>
             <button
               onClick={handleNext}
