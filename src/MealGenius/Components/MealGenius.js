@@ -6,7 +6,7 @@ import TableResults from "./TableResults";
 import Disclaimer from "./Disclaimer";
 import { FaHome } from "react-icons/fa";
 import { showSpinner, hideSpinner } from "../animations";
-import { fetchApiMessage } from "../mealGeniusThunk";
+import Summary from "./Summary";
 
 function MealGenius() {
   const [userData, setUserData] = useState(null);
@@ -17,14 +17,6 @@ function MealGenius() {
   const handleSubmit = (data) => {
     setUserData(data);
   };
-
-  useEffect(() => {
-    fetchApiMessage().then((message) => {
-    console.log("API message:", message);
-    }).catch((error) => {
-      console.error("Error fetching API message:", error);
-    });
-  }, []);
 
   const handleGenerateDieta = () => {
     setShowDieta(false);
@@ -41,21 +33,21 @@ function MealGenius() {
   };
 
   const mockDieta = {
-    colazione: [
+    Colazione: [
       { alimento: "Latte", quantità: "200ml" },
       { alimento: "Fette biscottate", quantità: "3" },
     ],
-    pranzo: [
+    Pranzo: [
       { alimento: "Pasta integrale", quantità: "80g" },
       { alimento: "Petto di pollo", quantità: "150g" },
       { alimento: "Insalata mista", quantità: "100g" },
     ],
-    cena: [
+    Cena: [
       { alimento: "Zuppa di legumi", quantità: "250g" },
       { alimento: "Pane integrale", quantità: "50g" },
       { alimento: "Verdure grigliate", quantità: "150g" },
     ],
-    spuntini: [
+    Spuntini: [
       { alimento: "Frutta fresca", quantità: "1 mela" },
       { alimento: "Yogurt magro", quantità: "125g" },
     ],
@@ -163,27 +155,7 @@ function MealGenius() {
       ) : !userData ? (
         <FormMeal onSubmit={handleSubmit} />
       ) : (
-        <div style={{ marginTop: "100px", color: "white" }}>
-          <h2 style={{ fontSize: "1.8rem", marginBottom: "10px" }}>Riepilogo</h2>
-          <p>Età: {userData.age}</p>
-          <p>Peso: {userData.weight} kg</p>
-          <p>Obiettivo: {userData.goal}</p>
-          <p>Allergie: {userData.allergies || "Nessuna"}</p>
-          <button
-            onClick={handleGenerateDieta}
-            style={{
-              marginTop: "10px",
-              padding: "10px 20px",
-              background: "#4caf50",
-              color: "white",
-              border: "none",
-              borderRadius: "5px",
-              cursor: "pointer",
-            }}
-          >
-            Genera Dieta
-          </button>
-        </div>
+        <Summary userData={userData} onGenerateDieta={handleGenerateDieta} />
       )}
     </div>
   );

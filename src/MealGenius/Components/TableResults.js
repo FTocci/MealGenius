@@ -6,7 +6,7 @@ const TableResults = ({ data }) => {
         return <div>No data available</div>;
     }
 
-    const order = ['colazione', 'pranzo', 'spuntini', 'cena'];
+    const order = ['Colazione', 'Pranzo', 'Spuntini', 'Cena'];
 
     return (
         <div className="table-container">
@@ -20,15 +20,18 @@ const TableResults = ({ data }) => {
                 </thead>
                 <tbody>
                     {order
-                        .filter((pasto) => data[pasto]) 
+                        .filter((pasto) => data[pasto])
                         .map((pasto) =>
-                            data[pasto].map((item, index) => (
-                                <tr key={`${pasto}-${index}`}>
-                                    <td>{pasto}</td>
-                                    <td>{item.alimento}</td>
-                                    <td>{item.quantità}</td>
-                                </tr>
-                            ))
+                            data[pasto].map((item, index) => {
+                                const showPasto = index === 0; // Mostra "Pasto" solo per la prima riga
+                                return (
+                                    <tr key={`${pasto}-${index}`}>
+                                        <td>{showPasto ? <strong>{pasto}</strong> : ''}</td>
+                                        <td>{item.alimento}</td>
+                                        <td>{item.quantità}</td>
+                                    </tr>
+                                );
+                            })
                         )}
                 </tbody>
             </table>
