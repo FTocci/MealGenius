@@ -1,7 +1,7 @@
 export async function fetchApiMessage() {
-    const url = "https://meal-genius-henna.vercel.app/api/helloMessage";
+    const url = "api/helloMessage";
     try {
-      const response = await fetch(url, { mode: 'no-cors' });
+      const response = await fetch(url);
       if (!response.ok) {
         throw new Error(`Errore HTTP! Status: ${response.status}`);
       }
