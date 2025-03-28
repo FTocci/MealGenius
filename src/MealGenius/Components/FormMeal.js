@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./css/MealGenius.css";
+import "../css/MealGenius.css";
 
 function FormMeal({ onSubmit }) {
   const [step, setStep] = useState(0);

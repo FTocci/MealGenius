@@ -1,5 +1,5 @@
 import React from 'react';
-import './css/TableResults.css';
+import '../css/TableResults.css';
 
 const TableResults = ({ data }) => {
     if (typeof data !== 'object' || Array.isArray(data) || data === null) {

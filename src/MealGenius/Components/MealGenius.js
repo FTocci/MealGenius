@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom"; 
 import FormMeal from "./FormMeal";
-import "./css/MealGenius.css";
+import "../css/MealGenius.css";
 import TableResults from "./TableResults";
 import Disclaimer from "./Disclaimer";
-import { FaHome, FaBowlFood } from "react-icons/fa";
+import { FaHome } from "react-icons/fa";
+import { showSpinner, hideSpinner } from "../animations";
+import { fetchApiMessage } from "../mealGeniusThunk";
 
 function MealGenius() {
   const [userData, setUserData] = useState(null);
@@ -16,35 +18,22 @@ function MealGenius() {
     setUserData(data);
   };
 
+  useEffect(() => {
+    fetchApiMessage().then((message) => {
+    console.log("API message:", message);
+    }).catch((error) => {
+      console.error("Error fetching API message:", error);
+    });
+  }, []);
+
   const handleGenerateDieta = () => {
     setShowDieta(false);
-    const loadingScreen = document.createElement("div");
-    loadingScreen.style.cssText = `
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.8); display: flex; justify-content: center;
-      align-items: center; z-index: 1000;
-    `;
-
-    const spinner = document.createElement("div");
-    spinner.style.cssText = `
-      width: 50px; height: 50px; border: 5px solid #f3f3f3;
-      border-top: 5px solid #3498db; border-radius: 50%;
-      animation: spin 1s linear infinite;
-    `;
-
-    const style = document.createElement("style");
-    style.textContent = `
-      @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-    `;
-    document.head.appendChild(style);
-
-    loadingScreen.appendChild(spinner);
-    document.body.appendChild(loadingScreen);
-
+    const loadingScreen = showSpinner();
     setTimeout(() => {
-      document.body.removeChild(loadingScreen);
+      hideSpinner(loadingScreen);
+  
       setShowDieta(true);
-    }, 5000); //da sostituire con la chiamata API appena non arriva la risposta
+    }, 5000); 
   };
 
   const handleCloseDisclaimer = () => {
