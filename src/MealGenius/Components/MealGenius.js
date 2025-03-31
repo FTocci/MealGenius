@@ -1,18 +1,21 @@
-import React, { useEffect, useState } from "react";
+/* eslint-disable no-loop-func */
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; 
 import FormMeal from "./FormMeal";
 import "../css/MealGenius.css";
 import TableResults from "./TableResults";
 import Disclaimer from "./Disclaimer";
-import { FaHome } from "react-icons/fa";
+import { FaHome, FaList } from "react-icons/fa";
 import { showSpinner, hideSpinner } from "../animations";
 import Summary from "./Summary";
+import {getDieteGenerated} from '../mealGeniusThunk';
 
 function MealGenius() {
   const [userData, setUserData] = useState(null);
   const [showDieta, setShowDieta] = useState(false);
   const [showDisclaimer, setShowDisclaimer] = useState(true);
   const navigate = useNavigate(); // Inizializza useNavigate
+  const [dieteGenerate, setDieteGenerate] = useState([]);
 
   const handleSubmit = (data) => {
     setUserData(data);
@@ -51,6 +54,13 @@ function MealGenius() {
       { alimento: "Frutta fresca", quantità: "1 mela" },
       { alimento: "Yogurt magro", quantità: "125g" },
     ],
+  };
+
+  const showGeneratedDiets = (user) => {
+    getDieteGenerated(user)
+      .then(data => {        
+        setDieteGenerate(data);
+      });
   };
 
   const downloadTableAsTxt = () => {
@@ -94,6 +104,28 @@ function MealGenius() {
       >
         <FaHome size={35} />
       </button>
+      {/* Visualizza diete generate */}
+      {JSON.parse(sessionStorage.getItem("user")) &&
+        <button
+        onClick={() => showGeneratedDiets(JSON.parse(sessionStorage.getItem("user")).email)}
+        style={{
+          position: "absolute",
+          right: "20px",
+          background: "transparent",
+          border: "none",
+          cursor: "pointer",
+          display: "flex",
+          alignItems: "center",
+          padding: "5px",
+          transition: "color 0.3s ease",
+          color: "#FFFFFF", // Colore icona predefinito
+        }}
+        onMouseOver={(e) => (e.target.style.color = "green")}
+        onMouseOut={(e) => (e.target.style.color = "#FFFFFF")}
+      >
+        <FaList size={35} />
+      </button>
+      }
 
 
       <div style={{ textAlign: "center", marginBottom: "30px" }}>
@@ -119,7 +151,21 @@ function MealGenius() {
         ></div>
       </div>
 
-      {showDieta ? (
+      {dieteGenerate.length > 0 ? (
+          <div>
+            <h2 style={{ marginTop: "20px", color: "#FFFFFF" }}>Diete Generate:</h2>
+            {dieteGenerate.map((dieta, index) => (
+              <div key={index} style={{ marginBottom: "20px" }}>
+                {Object.entries(dieta).map(([key, value]) => (
+                  <p key={key} style={{ color: "#FFFFFF", textAlign: "left", margin: "5px 0" }}>
+                    <strong>{key}:</strong> {Array.isArray(value) ? value.map(item => `${item.alimento} (${item.quantità})`).join(", ") : value}
+                  </p>
+                ))}
+              </div>
+            ))}
+          </div>
+        ): 
+        showDieta ? (
         <div>
           <TableResults data={mockDieta} />
           <button
