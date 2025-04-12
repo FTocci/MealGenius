@@ -81,7 +81,7 @@ function MealGenius() {
   };
 
   return (
-    <div style={{ color: "white", textAlign: "center", padding: "0px", fontFamily: "Arial, sans-serif" }}>
+    <div style={{ color: "white", textAlign: "center", padding: "10px", fontFamily: "Arial, sans-serif" }}>
       {showDisclaimer && <Disclaimer handleCloseDisclaimer={handleCloseDisclaimer} />}
 
       {/* Bottone per tornare alla home */}
@@ -128,7 +128,7 @@ function MealGenius() {
       }
 
 
-      <div style={{ textAlign: "center", marginBottom: "30px" }}>
+      {/* <div style={{ textAlign: "center", marginBottom: "30px" }}>
         <h1
           style={{
             fontSize: "3rem",
@@ -149,21 +149,57 @@ function MealGenius() {
             borderRadius: "2px",
           }}
         ></div>
-      </div>
+      </div> */}
 
       {dieteGenerate.length > 0 ? (
-          <div>
-            <h2 style={{ marginTop: "20px", color: "#FFFFFF" }}>Diete Generate:</h2>
-            {dieteGenerate.map((dieta, index) => (
-              <div key={index} style={{ marginBottom: "20px" }}>
-                {Object.entries(dieta).map(([key, value]) => (
-                  <p key={key} style={{ color: "#FFFFFF", textAlign: "left", margin: "5px 0" }}>
-                    <strong>{key}:</strong> {Array.isArray(value) ? value.map(item => `${item.alimento} (${item.quantità})`).join(", ") : value}
-                  </p>
-                ))}
-              </div>
-            ))}
-          </div>
+        <div style={{ marginTop: "50px" }}>
+        <h2 style={{ color: "#FFFFFF", fontSize: "24px", marginBottom: "150px" }}>Diete Generate:</h2>
+        <div
+          style={{
+            display: "flex",
+            overflowX: "auto",
+            gap: "16px",
+            paddingBottom: "10px",
+          }}
+        >
+          {dieteGenerate.map((dieta, index) => (
+            <div
+              key={index}
+              style={{
+                minWidth: "300px",
+                minHeight: "200px",
+                flex: "0 0 auto",
+                backgroundColor: "#1e1e2f",
+                borderRadius: "12px",
+                padding: "32px 24px", // più spazio interno
+                boxShadow: "0 4px 12px rgba(0, 0, 0, 0.3)",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+              }}
+            >
+              {Object.entries(dieta).map(([key, value]) => (
+                <p
+                  key={key}
+                  style={{
+                    color: "#E0E0E0",
+                    textAlign: "left",
+                    margin: "8px 0",
+                    lineHeight: "1.6",
+                  }}
+                >
+                  <strong style={{ color: "#FFD700" }}>{key}:</strong>{" "}
+                  {Array.isArray(value)
+                    ? value.map((item) => `${item.alimento} (${item.quantità})`).join(", ")
+                    : value}
+                </p>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+      
+        
         ): 
         showDieta ? (
         <div>
